@@ -4,6 +4,7 @@ import debug from 'debug';
 
 import MainLayout from './layout/MainLayout';
 import HomePage from './containers/HomePage';
+import Recipe from './components/Recipe';
 import NotFound from './components/NotFound';
 
 debug('client:routes');
@@ -17,11 +18,11 @@ export const routes = {
 		title: `${siteTitle} = Home`,
 		component: HomePage
 	},
-	test: {
-		path: '/test/',
-		label: 'Test',
-		title: `${siteTitle} = Test`,
-		component: ''
+	recipe: {
+		path: '/recipe/:id/',
+		label: 'Recipe',
+		title: `${siteTitle} = Recipe`,
+		component: Recipe
 	}
 }
 
@@ -32,7 +33,7 @@ export function makeRoutes() {
 	return (
 		<Route path="/" component={MainLayout}>
 			<IndexRoute { ...indexRoute(routes.homepage) } />
-			<Route { ...routes.test } />
+			<Route { ...routes.recipe } />
 			<Route path="*" title ={`${siteTitle} - Page Not Found`} component={NotFound} />
 		</Route>
 	)

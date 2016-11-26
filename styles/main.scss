@@ -1,3 +1,14 @@
 body {
 	margin: 0;
 }
+
+.week-plan {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+}
+
+.day-card {
+	flex: 0 1 30%;
+	margin: 0 20px;
+}

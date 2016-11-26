@@ -22,10 +22,10 @@ export default class MainLayout extends Component {
 
     return (
 			<MuiThemeProvider>
-				<main>
+				<div id="main-container">
 					<AppBar title="food-client" />
 					{children}
-				</main>
+				</div>
 			</MuiThemeProvider>
     );
   }
