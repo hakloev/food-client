@@ -1,8 +1,6 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 
-import { AutoComplete as MUIAutoComplete } from 'material-ui';
-import AutoComplete from './overrides/AutoComplete';
 import { SelectField, TextField } from 'redux-form-material-ui';
 import RaisedButton from 'material-ui/RaisedButton';
 import MenuItem from 'material-ui/MenuItem'
