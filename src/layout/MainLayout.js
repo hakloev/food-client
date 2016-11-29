@@ -1,10 +1,31 @@
 import React, { Component, PropTypes } from 'react';
-import injectTapEventPlugin from 'react-tap-event-plugin';
+import { Link } from 'react-router';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AppBar from 'material-ui/AppBar';
+import IconButton from 'material-ui/IconButton';
+import IconMenu from 'material-ui/IconMenu';
+import MenuItem from 'material-ui/MenuItem';
+import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 
+const Menu = (props) => (
+  <IconMenu
+    { ...props }
+    iconButtonElement={
+      <IconButton><MoreVertIcon /></IconButton>
+    }
+    targetOrigin={{horizontal: 'right', vertical: 'top'}}
+    anchorOrigin={{horizontal: 'right', vertical: 'top'}}
+  >
+    <MenuItem
+      primaryText="Create new plan"
+    />
+    <MenuItem primaryText="Create new recipe"
+      containerElement={<Link to="/recipes/create/" />}
+    />
+  </IconMenu>
+);
+Menu.muiName = 'IconMenu';
 
-injectTapEventPlugin();
 
 
 export default class MainLayout extends Component {
@@ -23,7 +44,11 @@ export default class MainLayout extends Component {
     return (
 			<MuiThemeProvider>
 				<div id="main-container">
-					<AppBar title="food-client" />
+					<AppBar
+            title={<Link to="/">Home</Link>}
+            showMenuIconButton={false}
+            iconElementRight={<Menu />}
+          />
 					{children}
 				</div>
 			</MuiThemeProvider>

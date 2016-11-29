@@ -38,11 +38,13 @@ class ApiService {
 
         if (body) {
           requestInit.body = JSON.stringify(body);
+          console.log('req body', body);
         }
-				console.log(headers);
+
+				console.log('req headers', headers);
         requestInit.headers = headers;
         const request = new Request(path);
-				console.log(request);
+				console.log('req', request);
         return fetch(request, requestInit)
 					.then(checkStatus)
           .then(response => response.json()

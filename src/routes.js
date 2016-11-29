@@ -4,7 +4,10 @@ import debug from 'debug';
 
 import MainLayout from './layout/MainLayout';
 import HomePage from './containers/HomePage';
-import Recipe from './components/Recipe';
+import Recipe from './containers/Recipe';
+import RecipeList from './containers/RecipeList';
+import RecipeEdit from './containers/RecipeEdit';
+// import RecipeForm from './components/RecipeCreate';
 import NotFound from './components/NotFound';
 
 debug('client:routes');
@@ -18,22 +21,35 @@ export const routes = {
 		title: `${siteTitle} = Home`,
 		component: HomePage
 	},
-	recipe: {
-		path: '/recipe/:id/',
+  recipeList: {
+    path: 'recipes',
+    label: 'Recipes',
+    title: `${siteTitle} = Recipes`,
+    component: RecipeList,
+  },
+	recipeEdit: {
+    path: 'recipes/:id/edit',
+    label: 'Create Recipe',
+    title: `${siteTitle} = Create Recipe`,
+    component: RecipeEdit,
+  },
+	recipeDetail: {
+		path: 'recipes/:id/view',
 		label: 'Recipe',
 		title: `${siteTitle} = Recipe`,
 		component: Recipe
-	}
+	},
 }
 
 const indexRoute = (route) => Object.assign({}, route, { path: null });
 
 export function makeRoutes() {
-	console.log(indexRoute(routes.homepage));
 	return (
 		<Route path="/" component={MainLayout}>
 			<IndexRoute { ...indexRoute(routes.homepage) } />
-			<Route { ...routes.recipe } />
+      <Route { ...routes.recipeList } />
+			<Route { ...routes.recipeDetail } />
+			<Route { ...routes.recipeEdit } />
 			<Route path="*" title ={`${siteTitle} - Page Not Found`} component={NotFound} />
 		</Route>
 	)

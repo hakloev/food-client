@@ -1,10 +1,11 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router';
-import debug from 'debug';
-import ApiService from '../api/fetch';
-import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 
-debug('client:HomePage');
+import { actions as planActions } from '../data/plan';
+
+import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
+import ApiService from '../api/fetch';
 
 const dayTranslate = {
 	0: 'Monday',
@@ -16,33 +17,23 @@ const dayTranslate = {
 	6: 'Sunday',
 }
 
-export default class HomePage extends React.Component {
-
+class HomePage extends React.Component {
 	constructor(props) {
-		super(props)
-		this.state = {
-			plan: {},
-		};
-
-		const data2 = ApiService.get('/api/plan/latest/')
-			.then(({ json }) => {
-				console.log(json);
-				this.setState({
-					plan: json,
-				});
-			})
+		super(props);
+		console.log(props);
+		this.props.fetchNewestPlan();
 	}
 
   render() {
     return (
 			<div className="week-plan">
-	    	{ Object.keys(this.state.plan).length > 0
-					? this.state.plan.days.sort((day, other) => day.day > other.day).map(day => {
+	    	{ Object.keys(this.props.plan).length > 0
+					? this.props.plan.days.sort((day, other) => day.day > other.day).map(day => {
 						console.log(day);
 						return <Card className="day-card">
 							<CardHeader
-								title={<Link to={`recipe/${day.recipe.id}/`}>{dayTranslate[day.day]}</Link>}
-								subtitle={day.recipe.name}
+								title={dayTranslate[day.day]}
+								subtitle={<Link to={`recipes/${day.recipe.id}/view/`}>{day.recipe.name}</Link>}
 							/>
 						</Card>
 					})
@@ -52,3 +43,18 @@ export default class HomePage extends React.Component {
     );
   }
 }
+
+const mapStateToProps = state => {
+	console.log(state);
+	return {
+		plan: state.plan.latest,
+	}
+}
+
+const mapDispatchToProps = dispatch => {
+	return {
+		fetchNewestPlan: () => dispatch(planActions.fetchNewestPlan()),
+	}
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(HomePage);

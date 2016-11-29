@@ -1,9 +1,12 @@
+import 'babel-polyfill';
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Root from './Root';
 
 import debug from 'debug';
 
+import configureStore from './configureStore';
 import HMRContainer from './containers/HMRContainer';
 
 require('../styles/main.scss');
@@ -13,11 +16,12 @@ debug.enable();
 const log = debug('client:index.js');
 log('Client environment', process.env);
 
+const store = configureStore();
 const rootEl = document.getElementById('root')
 
 const App = (
 	<HMRContainer>
-		<Root />
+		<Root store={store} />
 	</HMRContainer>
 )
 
@@ -28,7 +32,7 @@ try {
       const NextApp = require('./Root').default;
       ReactDOM.render(
         <HMRContainer>
-          <NextApp />
+          <NextApp store={store} />
         </HMRContainer>,
         rootEl
       );

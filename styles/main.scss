@@ -2,6 +2,13 @@ body {
 	margin: 0;
 }
 
+#main-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+}
+
 .week-plan {
 	display: flex;
 	flex-direction: row;
@@ -11,4 +18,9 @@ body {
 .day-card {
 	flex: 0 1 30%;
 	margin: 0 20px;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
 }
