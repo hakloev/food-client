@@ -6,11 +6,8 @@ import { sagas as recipes } from './data/recipes';
 
 export default function* root() {
   yield [
-    ingredients.watchIngredientsFetch(),
-    ingredients.watchCreateRecipe(),
-    plan.watchNewestPlan(),
-    recipes.watchRecipeFetch(),
-    recipes.watchSingleRecipeFetch(),
-    recipes.watchCreateRecipe(),
+    ingredients.watchIngredientsSagas(),
+    plan.watchPlanSagas(),
+    recipes.watchRecipeSagas(),
   ]
 }

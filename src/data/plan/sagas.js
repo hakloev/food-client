@@ -14,6 +14,8 @@ function* fetchNewestPlan(action) {
   }
 }
 
-export function* watchNewestPlan() {
-  yield* takeEvery(actions.FETCH_NEWEST_REQUEST, fetchNewestPlan);
+export function* watchPlanSagas() {
+  yield* [
+    takeEvery(actions.FETCH_NEWEST_REQUEST, fetchNewestPlan),
+  ]
 }

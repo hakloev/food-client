@@ -12,9 +12,18 @@ import AddIcon from 'material-ui/svg-icons/av/playlist-add-check';
 class IngredientSearchBar extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      query: '',
+    }
   }
 
-  onSearch = (inputValue, index) => {
+  handleInput = query => {
+    this.setState({
+      query,
+    });
+  }
+
+  handleSearch = (inputValue, index) => {
     console.log('type change', inputValue, index);
     // index -1 if enter in textfield
     if (index === -1) {
@@ -22,6 +31,9 @@ class IngredientSearchBar extends React.Component {
       return;
     }
     this.props.addIngredient(inputValue.id, index);
+    this.setState({
+      query: '',
+    })
   }
 
   render() {
@@ -35,7 +47,9 @@ class IngredientSearchBar extends React.Component {
           dataSourceConfig={{ text: 'name', value: 'id' }}
           maxSearchResults={5}
           openOnFocus={true}
-          onNewRequest={this.onSearch}
+          searchText={this.state.query}
+          onUpdateInput={this.handleInput}
+          onNewRequest={this.handleSearch}
         />
       </div>
     )

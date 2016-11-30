@@ -22,16 +22,18 @@ const dataSourceConfig = {
 
 class RecipeMetaForm extends React.Component {
   constructor(props) {
-    console.log('props', props);
+    console.log('recipe meta form', props);
     super(props);
   }
 
   render() {
-    console.log('recipe form');
-    console.log('props', this.props);
+    console.log('recipe form render');
+    console.log('recipe form render props', this.props);
+
+    const { handleSubmit, isNewRecipe, handleEdit, handleDelete } = this.props;
 
     return (
-       <form onSubmit={this.props.handleSubmit}>
+       <form onSubmit={handleSubmit}>
         <div>
           <Field name="name" floatingLabelText="Name" component={TextField} label="Name" fullWidth={true} />
         </div>
@@ -45,8 +47,11 @@ class RecipeMetaForm extends React.Component {
             })}
           </Field>
         </div>
-        {!this.props.isNewRecipe && 
-          <RaisedButton primary={true} type="submit" label="Submit" />
+        {!isNewRecipe &&
+          <div>
+            <RaisedButton primary={true} label="Update" onTouchTap={handleEdit} />
+            <RaisedButton primary={true} label="Delete" onTouchTap={handleDelete} />
+          </div>
         }
       </form>
     )

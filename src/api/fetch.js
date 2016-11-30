@@ -3,12 +3,12 @@ import promise from 'es6-promise';
 
 promise.polyfill();
 
-const methods = ['post', 'get'];
+const methods = ['post', 'get', 'put', 'delete'];
 
 export function checkStatus(response) {
 	console.log('checkStatus')
   if (response.status < 200 || response.status >= 300) {
-		console.log('err')
+		console.log('error in fetch')
     const error = new Error(response.statustext);
     error.response = response;
     throw error;
@@ -38,17 +38,18 @@ class ApiService {
 
         if (body) {
           requestInit.body = JSON.stringify(body);
-          console.log('req body', body);
+          console.log('request body', body);
         }
 
-				console.log('req headers', headers);
+				console.log('request headers', headers);
         requestInit.headers = headers;
         const request = new Request(path);
-				console.log('req', request);
+				console.log('request', request);
         return fetch(request, requestInit)
 					.then(checkStatus)
           .then(response => response.json()
             .then(json => ({ json, response }))
+            .catch(e => console.error('No JSON-response:', e))
 					.catch(error => {
 						console.error(error);
 					})

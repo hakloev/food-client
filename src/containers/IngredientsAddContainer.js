@@ -15,29 +15,29 @@ export default class IngredientsAddContainer extends React.Component {
     }
   }
 
-  onSubmit = formData => {
+  handleSubmit = formData => {
     const { recipe } = this.props;
-    console.log('Edit Recipe', recipe.id);
-    console.log('Edit recipe', formData);
+    console.log('add ingredient recipe id', recipe.id);
+    console.log('add ingredient form data', formData);
+    this.props.addIngredient(formData, recipe.id);
+    this.setState({
+      newIngredient: null,
+    })
     // TODO: call editrecipe actions
-  }
-
-  onDelete = event => {
-    const { recipe } = this.props;
-    console.log('Remove Recipe', recipe.id);
-    // TODO: call removerecipe action
   }
 
   addIngredientToList = (ingredientId, index) => {
     console.log('addIngredientToList', ingredientId, index);
+    const ingredientObj = this.props.allIngredients.find(i => i.id === ingredientId)
     const newIngredient = Object.assign({}, {
       amount: '1',
       unit: Object.keys(INGREDIENT_UNITS)[0],
       preparation: 'Oppkuttet',
       ingredient_id: ingredientId,
+      ingredient: ingredientObj.name,
     });
     console.log('addIngredientToList', newIngredient);
-   
+
     this.setState({
       newIngredient,
     });
@@ -45,22 +45,23 @@ export default class IngredientsAddContainer extends React.Component {
 
   render() {
     console.log('render IngredientsAddContainer');
-    console.log(this.props);
+    console.log('render IngredientsAddContainer props', this.props);
 
     const { allIngredients } = this.props;
     const { newIngredient } = this.state;
-    
+
     return (
       <div>
-        <IngredientsSearchBar 
+        <IngredientsSearchBar
           ingredients={allIngredients}
           addIngredient={this.addIngredientToList}
         />
-        {newIngredient && 
-          <IngredientForm 
+        {newIngredient &&
+          <IngredientForm
             isNewIngredient
-            formKey={`new-ingredient-form-${Math.random() * 1000}`}
+            form={`new-ingredient-form-${Math.random() * 1000}`}
             initialValues={newIngredient}
+            onSubmit={this.handleSubmit}
             removeIngredient={null}
             possibleIngredients={allIngredients}
           />

@@ -10,17 +10,24 @@ function all(state = {}, action) {
       for (let recipe in action.recipes) {
         recipes[recipe.id] = recipe
       }
+      console.log('recipes all fetch', recipes);
       return {
         ...state,
         ...recipes,
       }
     case actions.FETCH_SINGLE_RECIPE_SUCCESS:
     case actions.CREATE_RECIPE_SUCCESS:
-      console.log('recipe fetch success', action);
-      const id = action.recipe.id;
+    case actions.EDIT_RECIPE_SUCCESS:
+      console.log('recipe fetch/create/edit success', action);
       return {
         ...state,
-        [id]: action.recipe,
+        [action.recipe.id]: action.recipe,
+      }
+    case actions.DELETE_RECIPE_SUCCESS:
+      console.warn('delete recipe success', action);
+      const filteredState = Object.keys(state).filter(i => i !== action.payload.id);
+      return {
+        ...filteredState
       }
     default:
       return state;
@@ -33,7 +40,7 @@ function byId(state = {}, action) {
       return action.recipe;
     case actions.CREATE_RECIPE_SUCCESS:
       return action.recipe;
-    default: 
+    default:
       return state;
   }
 }

@@ -14,6 +14,20 @@ function all(state = [], action) {
   }
 }
 
+function recipe(state = [], action) {
+  switch (action.type) {
+    case actions.CREATE_RECIPE_INGREDIENT_SUCCESS:
+    case actions.EDIT_RECIPE_INGREDIENT_SUCCESS:
+      console.log('recipe ing create/edit success', action);
+      return [
+        ...state,
+        action.payload,
+      ]
+    default:
+      return state;
+  }
+}
+
 function isFetching(state = false, action) {
   switch (action.type) {
     case actions.FETCH_INGREDIENTS_REQUEST:
@@ -28,5 +42,6 @@ function isFetching(state = false, action) {
 
 export default combineReducers({
   all,
+  recipe,
   isFetching,
 });

@@ -15,11 +15,6 @@ function* fetchRecipes(action) {
   }
 }
 
-export function* watchRecipeFetch() {
-  yield* takeEvery(actions.FETCH_RECIPES_REQUEST, fetchRecipes);
-}
-
-
 function* fetchSingleRecipe(action) {
   try {
     const path = `/api/recipes/${action.id}/`;
@@ -29,11 +24,6 @@ function* fetchSingleRecipe(action) {
     console.error('fetchSingleRecipeError', error);
   }
 }
-
-export function* watchSingleRecipeFetch() {
-  yield* takeEvery(actions.FETCH_SINGLE_RECIPE_REQUEST, fetchSingleRecipe);
-}
-
 
 function* createRecipe(action) {
   try {
@@ -49,6 +39,36 @@ function* createRecipe(action) {
   }
 }
 
-export function* watchCreateRecipe() {
-  yield* takeEvery(actions.CREATE_RECIPE_REQUEST, createRecipe);
+function* editRecipe(action) {
+  try {
+    console.log('edit recipe', action);
+    const path = `/api/recipes/${action.id}/`;
+    const { json } = yield call(ApiService.put, path, { body: action.recipe })
+    console.log('response on edit recipe', json);
+    yield put(actions.editRecipeSuccess(json));
+  } catch (error) {
+    console.error('editRecipeError', error);
+  }
+}
+
+function* deleteRecipe(action) {
+  try {
+    console.log('delete recipe', action);
+    const path = `/api/recipes/${action.id}/`;
+    const response = yield call(ApiService.delete, path);
+    console.log('response on delete recipe', response);
+    yield put(actions.deleteRecipeSuccess(action.id));
+  } catch (error) {
+    console.error('deleteRecipeError', error);
+  }
+}
+
+export function* watchRecipeSagas() {
+  yield* [
+    takeEvery(actions.FETCH_RECIPES_REQUEST, fetchRecipes),
+    takeEvery(actions.FETCH_SINGLE_RECIPE_REQUEST, fetchSingleRecipe),
+    takeEvery(actions.CREATE_RECIPE_REQUEST, createRecipe),
+    takeEvery(actions.EDIT_RECIPE_REQUEST, editRecipe),
+    takeEvery(actions.DELETE_RECIPE_REQUEST, deleteRecipe),
+  ]
 }

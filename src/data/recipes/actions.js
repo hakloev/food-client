@@ -40,6 +40,35 @@ export const createRecipeSuccess = recipe => ({
   recipe,
 });
 
+export const EDIT_RECIPE_REQUEST = 'recipes/edit/REQUEST';
+export const EDIT_RECIPE_FAILURE = 'recipes/edit/FAILURE';
+export const EDIT_RECIPE_SUCCESS = 'recipes/edit/SUCCESS';
+
+export const editRecipe = (recipe, id) => ({
+  type: EDIT_RECIPE_REQUEST,
+  recipe,
+  id,
+});
+
+export const editRecipeSuccess = recipe => ({
+  type: EDIT_RECIPE_SUCCESS,
+  recipe,
+});
+
+export const DELETE_RECIPE_REQUEST = 'recipes/delete/REQUEST';
+export const DELETE_RECIPE_FAILURE = 'recipes/delete/FAILURE';
+export const DELETE_RECIPE_SUCCESS = 'recipes/delete/SUCCESS';
+
+export const deleteRecipe = id => ({
+  type: DELETE_RECIPE_REQUEST,
+  id,
+});
+
+export const deleteRecipeSuccess = payload => ({
+  type: DELETE_RECIPE_SUCCESS,
+  payload,
+});
+
 export const SHOW_CREATE_MODAL = 'recipes/modal/SHOW';
 export const HIDE_CREATE_MODAL = 'recipes/modal/HIDE';
 

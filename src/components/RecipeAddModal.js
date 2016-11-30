@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux'; 
+import { connect } from 'react-redux';
 import { submit } from 'redux-form';
 
 import Dialog from 'material-ui/Dialog';
@@ -22,6 +22,7 @@ const styles = {
 class RecipeAddModal extends React.Component {
   constructor(props) {
     super(props);
+    this.formIdentifier = 'add-recipe-form';
   }
 
   // Executed when handleSubmit in form is Executed
@@ -33,7 +34,7 @@ class RecipeAddModal extends React.Component {
 
   handleAdd = () => {
     console.log('add');
-    this.props.handleFormSubmit();
+    this.props.handleFormSubmit(this.formIdentifier);
     // if(!this.props.form.recipe.syncErrors){
     //   this.props.hideModal();
     // }
@@ -55,13 +56,13 @@ class RecipeAddModal extends React.Component {
 
     return (
       <div>
-        <FloatingActionButton 
+        <FloatingActionButton
           style={styles.addButton}
           onTouchTap={() => this.props.showModal()}
-        > 
+        >
           <ContentAdd />
         </FloatingActionButton>
-        <Dialog 
+        <Dialog
           title="Add a recipe"
           actions={actions}
           modal={true}
@@ -69,9 +70,9 @@ class RecipeAddModal extends React.Component {
           autoScrollBodyContent={true}
         >
           <RecipeMetaForm
-            formKey="add-recipe-form" 
-            isNewRecipe 
-            onSubmit={this.handleSubmit} 
+            form={this.formIdentifier}
+            isNewRecipe
+            onSubmit={this.handleSubmit}
           />
         </Dialog>
       </div>
@@ -88,7 +89,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    handleFormSubmit: () => dispatch(submit('recipe')),
+    handleFormSubmit: identifier => dispatch(submit(identifier)),
     showModal: () => dispatch(recipeActions.showCreateModal()),
     hideModal: () => dispatch(recipeActions.hideCreateModal()),
     addRecipe: recipe => dispatch(recipeActions.createRecipe(recipe)),
