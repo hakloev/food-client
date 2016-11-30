@@ -13,7 +13,7 @@ const styles = {
   }
 }
 
-class Recipe extends React.Component {
+class RecipeDetail extends React.Component {
 
 	constructor(props) {
 		super(props);
@@ -79,10 +79,10 @@ class Recipe extends React.Component {
 	}
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, ownProps) => {
   console.log(state);
   return {
-    recipe: state.recipes.byId,
+    recipe: state.recipes.all[ownProps.params.id],
   }
 }
 
@@ -92,4 +92,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Recipe);
+export default connect(mapStateToProps, mapDispatchToProps)(RecipeDetail);

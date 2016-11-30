@@ -4,7 +4,7 @@ import debug from 'debug';
 
 import MainLayout from './layout/MainLayout';
 import HomePage from './containers/HomePage';
-import Recipe from './containers/Recipe';
+import RecipeDetail from './containers/RecipeDetail';
 import RecipeList from './containers/RecipeList';
 import RecipeEdit from './containers/RecipeEdit';
 // import RecipeForm from './components/RecipeCreate';
@@ -34,10 +34,10 @@ export const routes = {
     component: RecipeEdit,
   },
 	recipeDetail: {
-		path: 'recipes/:id/view',
+		path: 'recipes/:id/detail',
 		label: 'Recipe',
 		title: `${siteTitle} = Recipe`,
-		component: Recipe
+		component: RecipeDetail
 	},
 }
 

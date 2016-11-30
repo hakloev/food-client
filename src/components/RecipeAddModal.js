@@ -14,8 +14,8 @@ import { actions as recipeActions } from '../data/recipes';
 const styles = {
   addButton: {
     position: "fixed",
-    left: "90%",
-    bottom: "10%",
+    right: "30px",
+    bottom: "30px",
   }
 }
 

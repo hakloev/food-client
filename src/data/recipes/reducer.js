@@ -7,10 +7,9 @@ function all(state = {}, action) {
     case actions.FETCH_RECIPES_SUCCESS:
       console.log('action', action)
       let recipes = {}
-      for (let recipe in action.recipes) {
-        recipes[recipe.id] = recipe
-      }
-      console.log('recipes all fetch', recipes);
+      action.recipes.forEach(r => {
+        recipes[r.id] = r;
+      });
       return {
         ...state,
         ...recipes,
@@ -25,9 +24,11 @@ function all(state = {}, action) {
       }
     case actions.DELETE_RECIPE_SUCCESS:
       console.warn('delete recipe success', action);
-      const filteredState = Object.keys(state).filter(i => i !== action.payload.id);
+      const { id } = action;
+      // destruct to get deleted, spread rest to state
+      let { [String(id)]: deletedRecipe, ...rest } = state;
       return {
-        ...filteredState
+        ...rest
       }
     default:
       return state;

@@ -58,6 +58,7 @@ function* deleteRecipe(action) {
     const response = yield call(ApiService.delete, path);
     console.log('response on delete recipe', response);
     yield put(actions.deleteRecipeSuccess(action.id));
+    browserHistory.push('/recipes/');
   } catch (error) {
     console.error('deleteRecipeError', error);
   }

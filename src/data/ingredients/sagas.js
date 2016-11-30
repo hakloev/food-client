@@ -45,6 +45,7 @@ function* editRecipeIngredient(action) {
     const { json } = yield call(ApiService.put, path, { body: action.ingredient })
     console.log('response on edit recipe ingredient', json);
     yield put(actions.editRecipeIngredientSuccess(json));
+    yield put(recipeActions.fetchSingleRecipe(action.recipeId));
   } catch (error) {
     console.error('editRecipeIngredientError', error);
   }
@@ -56,6 +57,7 @@ function* deleteRecipeIngredient(action) {
     const path = `/api/recipes/${action.recipeId}/ingredients/${action.id}/`;
     const response = yield call(ApiService.delete, path);
     yield put(actions.deleteRecipeIngredientSuccess(action.id));
+    yield put(recipeActions.fetchSingleRecipe(action.recipeId));
   } catch (error) {
     console.error('deleteRecipeIngredientError', error);
   }

@@ -33,7 +33,7 @@ class HomePage extends React.Component {
 						return <Card className="day-card">
 							<CardHeader
 								title={dayTranslate[day.day]}
-								subtitle={<Link to={`recipes/${day.recipe.id}/view/`}>{day.recipe.name}</Link>}
+								subtitle={<Link to={`recipes/${day.recipe.id}/detail/`}>{day.recipe.name}</Link>}
 							/>
 						</Card>
 					})

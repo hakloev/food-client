@@ -19,8 +19,8 @@ const Menu = (props) => (
     <MenuItem
       primaryText="Create new plan"
     />
-    <MenuItem primaryText="Create new recipe"
-      containerElement={<Link to="/recipes/create/" />}
+    <MenuItem primaryText="All recipes"
+      containerElement={<Link to="/recipes/" />}
     />
   </IconMenu>
 );
@@ -45,7 +45,7 @@ export default class MainLayout extends Component {
 			<MuiThemeProvider>
 				<div id="main-container">
 					<AppBar
-            title={<Link to="/">Home</Link>}
+            title={<Link to="/">food-fiesta</Link>}
             showMenuIconButton={false}
             iconElementRight={<Menu />}
           />

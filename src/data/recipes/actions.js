@@ -64,9 +64,9 @@ export const deleteRecipe = id => ({
   id,
 });
 
-export const deleteRecipeSuccess = payload => ({
+export const deleteRecipeSuccess = id => ({
   type: DELETE_RECIPE_SUCCESS,
-  payload,
+  id,
 });
 
 export const SHOW_CREATE_MODAL = 'recipes/modal/SHOW';
