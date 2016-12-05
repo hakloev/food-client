@@ -7,15 +7,7 @@ import { actions as plansActions } from '../data/plans';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import ApiService from '../api/fetch';
 
-const dayTranslate = {
-	0: 'Monday',
-	1: 'Tuesday',
-	2: 'Wednesday',
-	3: 'Thursday',
-	4: 'Friday',
-	5: 'Saturday',
-	6: 'Sunday',
-}
+import { DAYS } from '../constants';
 
 class HomePage extends React.Component {
 	constructor(props) {
@@ -25,15 +17,17 @@ class HomePage extends React.Component {
 	}
 
   render() {
+    const { plan, recipes } = this.props;
+
     return (
 			<div className="week-plan">
-	    	{ Object.keys(this.props.plan).length > 0
-					? this.props.plan.days.sort((day, other) => day.day > other.day).map(day => {
+	    	{ Object.keys(plan).length > 0
+					? plan.items.sort((day, other) => day.day > other.day).map(day => {
 						console.log(day);
-						return <Card className="day-card">
+						return <Card key={day.id} className="day-card">
 							<CardHeader
-								title={dayTranslate[day.day]}
-								subtitle={<Link to={`recipes/${day.recipe.id}/detail/`}>{day.recipe.name}</Link>}
+								title={DAYS[day]}
+								subtitle={<Link to={`recipes/${day.recipe_id}/detail/`}>{recipes[day.recipe_id].name}</Link>}
 							/>
 						</Card>
 					})
@@ -45,9 +39,10 @@ class HomePage extends React.Component {
 }
 
 const mapStateToProps = state => {
-	console.log(state);
+	console.log('home', state);
 	return {
 		plan: state.plans.latest,
+    recipes: state.recipes.all,
 	}
 }
 
