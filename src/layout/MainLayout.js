@@ -19,6 +19,9 @@ const Menu = (props) => (
     <MenuItem
       primaryText="Create new plan"
     />
+    <MenuItem primaryText="All plans"
+      containerElement={<Link to="/plans/" />}
+    />
     <MenuItem primaryText="All recipes"
       containerElement={<Link to="/recipes/" />}
     />

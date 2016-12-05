@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 
-import { actions as planActions } from '../data/plan';
+import { actions as plansActions } from '../data/plans';
 
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import ApiService from '../api/fetch';
@@ -47,13 +47,13 @@ class HomePage extends React.Component {
 const mapStateToProps = state => {
 	console.log(state);
 	return {
-		plan: state.plan.latest,
+		plan: state.plans.latest,
 	}
 }
 
 const mapDispatchToProps = dispatch => {
 	return {
-		fetchNewestPlan: () => dispatch(planActions.fetchNewestPlan()),
+		fetchNewestPlan: () => dispatch(plansActions.fetchNewestPlan()),
 	}
 }
 

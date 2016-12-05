@@ -9,6 +9,7 @@ import debug from 'debug';
 import configureStore from './configureStore';
 import HMRContainer from './containers/HMRContainer';
 import { actions as recipeActions } from './data/recipes';
+import { actions as plansActions } from './data/plans';
 
 
 require('../styles/main.scss');
@@ -23,6 +24,7 @@ const rootEl = document.getElementById('root')
 
 // Prefetch all recipes
 store.dispatch(recipeActions.fetchAllRecipes());
+store.dispatch(plansActions.fetchAllPlans());
 
 const App = (
 	<HMRContainer>

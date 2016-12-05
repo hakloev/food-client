@@ -7,6 +7,9 @@ import HomePage from './containers/HomePage';
 import RecipeDetail from './containers/RecipeDetail';
 import RecipeList from './containers/RecipeList';
 import RecipeEdit from './containers/RecipeEdit';
+import PlanList from './containers/PlanList';
+import PlanAdd from './containers/PlanAdd';
+import PlanDetail from './containers/PlanDetail';
 // import RecipeForm from './components/RecipeCreate';
 import NotFound from './components/NotFound';
 
@@ -39,6 +42,24 @@ export const routes = {
 		title: `${siteTitle} = Recipe`,
 		component: RecipeDetail
 	},
+  planList: {
+    path: 'plans',
+    label: 'Plans',
+    title: `${siteTitle} = Plans`,
+    component: PlanList,
+  },
+  planAdd: {
+    path: 'plans/add',
+    label: 'Plan Add',
+    title: `${siteTitle} = Plan Add`,
+    component: PlanAdd,
+  },
+  planDetail: {
+    path: 'plans/:id/detail',
+    label: 'Plan',
+    title: `${siteTitle} = Plan`,
+    component: PlanDetail,
+  }
 }
 
 const indexRoute = (route) => Object.assign({}, route, { path: null });
@@ -50,6 +71,9 @@ export function makeRoutes() {
       <Route { ...routes.recipeList } />
 			<Route { ...routes.recipeDetail } />
 			<Route { ...routes.recipeEdit } />
+      <Route { ...routes.planList } />
+      <Route { ...routes.planAdd } />
+      <Route { ...routes.planDetail } />
 			<Route path="*" title ={`${siteTitle} - Page Not Found`} component={NotFound} />
 		</Route>
 	)
