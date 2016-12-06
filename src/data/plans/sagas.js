@@ -52,12 +52,31 @@ function* createPlan(action) {
   }
 }
 
+function* editPlan(action) {
+  try {
+    const path = `/api/plans/${action.id}/`;
+    let { plan } = action;
+    console.log(plan);
+    plan = Object.assign({}, plan, {
+      start_date: Momemt(plan.start_date).format('YYYY-MM-DD'),
+    })
+
+    const { json } = yield call(ApiService.put, path, { body: plan });
+    console.log('editPlan response', json);
+    yield put(actions.editPlanSuccess(json));
+    browserHistory.push(`/plans/${json.id}/detail/`);
+  } catch (error) {
+    console.error('editPlanError', error);
+  }
+}
+
 
 export function* watchPlansSagas() {
   yield* [
     takeEvery(actions.FETCH_PLAN_REQUEST, fetchPlan),
     takeEvery(actions.FETCH_NEWEST_REQUEST, fetchNewestPlan),
     takeEvery(actions.FETCH_ALL_REQUEST, fetchAllPlans),
-    takeEvery(actions.CREATE_PLAN_REQUEST, createPlan)
+    takeEvery(actions.CREATE_PLAN_REQUEST, createPlan),
+    takeEvery(actions.EDIT_PLAN_REQUEST, editPlan),
   ]
 }

@@ -26,6 +26,7 @@ function all(state = {}, action) {
         ...plans,
       }
     case actions.CREATE_PLAN_SUCCESS:
+    case actions.EDIT_PLAN_SUCCESS:
     case actions.FETCH_PLAN_SUCCESS:
       return {
         ...state,

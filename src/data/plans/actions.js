@@ -51,3 +51,18 @@ export const createPlanSuccess = plan => ({
   type: CREATE_PLAN_SUCCESS,
   plan,
 })
+
+export const EDIT_PLAN_REQUEST = 'plan/edit/REQUEST';
+export const EDIT_PLAN_FAILURE = 'plan/edit/FAILURE';
+export const EDIT_PLAN_SUCCESS = 'plan/edit/SUCCESS';
+
+export const editPlan = plan => ({
+  type: EDIT_PLAN_REQUEST,
+  id: plan.id,
+  plan,
+})
+
+export const editPlanSuccess = plan => ({
+  type: EDIT_PLAN_SUCCESS,
+  plan,
+})

@@ -9,15 +9,11 @@ import FlatButton from 'material-ui/FlatButton';
 import PlanAddButton from '../components/PlanAddButton';
 
 class PlanList extends React.Component {
-  constructor(props) {
-    super(props);
-  }
 
   render() {
 
     let { plans } = this.props;
 
-    console.log('plans', plans);
 
     if (plans.length === 0) {
       return <p>No plans</p>
@@ -42,7 +38,6 @@ class PlanList extends React.Component {
             displayRowCheckbox={false}
           >
             {plans.map((p, i) => {
-              console.log(p);
               return <TableRow key={p.start_date}>
                 <TableRowColumn>{Moment(p.start_date).format('W')}</TableRowColumn>
                 <TableRowColumn>{p.cost} kr</TableRowColumn>
@@ -58,7 +53,6 @@ class PlanList extends React.Component {
 }
 
 const mapStateToProps = state => {
-  console.log(state);
   return {
     plans: Object.keys(state.plans.all).map(p => state.plans.all[p]), // TODO: Selector here
   }

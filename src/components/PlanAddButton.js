@@ -14,21 +14,12 @@ const styles = {
 }
 
 class PlanAddButton extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
-  handleClick = () => {
-    browserHistory.push('/plans/add/');
-  }
 
   render() {
-
-    console.log('render plan add button')
     return (
         <FloatingActionButton
           style={styles.addButton}
-          onTouchTap={this.handleClick}
+          onTouchTap={() => browserHistory.push('/plans/add/')}
         >
           <ContentAdd />
         </FloatingActionButton>

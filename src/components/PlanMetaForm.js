@@ -6,27 +6,14 @@ import { SelectField, TextField, DatePicker } from 'redux-form-material-ui';
 import RaisedButton from 'material-ui/RaisedButton';
 import MenuItem from 'material-ui/MenuItem'
 
-const styles = {}
-
-function disableAllButMonday(date) {
-  return date.getDay() !== 1
-}
+const disableAllButMonday = date => date.getDay() !== 1;
 
 class PlanMetaForm extends React.Component {
-  constructor(props) {
-    console.log('plan meta form', props);
-    super(props);
-  }
 
-  handleDateFormat = (date) => {
-    return Moment(date).format('W');
-  }
+  handleDateFormat = date => Moment(date).format('W');
 
   render() {
-    console.log('plan form render');
-    console.log('plan form render props', this.props);
-
-    const { handleSubmit, isNewPlan, handleEdit, handleDelete } = this.props;
+    const { fields, handleSubmit, isNewPlan, handleEdit, handleDelete } = this.props;
 
     return (
        <form onSubmit={handleSubmit}>
@@ -34,23 +21,24 @@ class PlanMetaForm extends React.Component {
           <Field
             name="start_date"
             component={DatePicker}
+            container="inline"
+            mode="landscape"
             shouldDisableDate={disableAllButMonday}
-            floatingLabelText="For week:"
+            floatingLabelText="For week"
             formatDate={this.handleDateFormat}
-            defaultDate={new Date()}
+            format={(value, name) => {
+              return value === undefined ? new Date() : new Date(value);
+            }}
           />
+          {!isNewPlan &&
+            <Field
+              name="cost"
+              component={TextField}
+              type="number"
+              floatingLabelText="Cost"
+            />
+          }
         </div>
-        {!isNewPlan &&
-          <div>
-            <div>
-              <Field name="cost" type="number" floatingLabelText="Do you know the price?" component={TextField} label="Cost" fullWidth={true} />
-            </div>
-            <div>
-              <RaisedButton primary={true} label="Update" onTouchTap={handleEdit} />
-              <RaisedButton primary={true} label="Delete" onTouchTap={handleDelete} />
-            </div>
-          </div>
-        }
       </form>
     )
   }
@@ -58,7 +46,7 @@ class PlanMetaForm extends React.Component {
 
 PlanMetaForm = reduxForm({
   form: 'add-plan',
-  destroyOnUnmount: false
+  destroyOnUnmount: false,
 })(PlanMetaForm);
 
 export default PlanMetaForm;

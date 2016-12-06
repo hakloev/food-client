@@ -5,14 +5,13 @@ import { actions as plansActions } from '../data/plans';
 
 class PlanDetail extends React.Component {
 
-	constructor(props) {
-		super(props);
+  componentWillMount() {
     this.props.fetchPlan(this.props.params.id);
-	}
+  }
 
 	render() {
+    const { plan }  = this.props;
 
-    const plan = this.props.plan;
     if (plan === undefined) {
       return <h1>No plan</h1>
     }

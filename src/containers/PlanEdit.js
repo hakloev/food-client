@@ -12,12 +12,10 @@ import PlanRecipesForm from '../components/PlanRecipesForm';
 
 import { actions as plansActions } from '../data/plans';
 
-import { DAYS } from '../constants';
-
-class PlanAdd extends React.Component {
+class PlanEdit extends React.Component {
   constructor(props) {
     super(props);
-    this.formIdentifier = 'add-plan';
+    this.formIdentifier = `edit-plan-${props.params.id}`
   }
 
   state = {
@@ -30,7 +28,7 @@ class PlanAdd extends React.Component {
   }
 
   handleSubmit = (data) => {
-    this.props.addPlan(data);
+    this.props.editPlan(data);
   }
 
   handleNextStep = () => {
@@ -58,38 +56,31 @@ class PlanAdd extends React.Component {
           primary={true}
           onTouchTap={stepIndex === 1 ? this.onSubmit : this.handleNextStep}
         />
-        {stepIndex > 0 && <FlatButton
+        {stepIndex > 0 &&
+          <FlatButton
           label="Back"
           disabled={stepIndex === 0}
           onTouchTap={this.handlePreviousStep}
-        />}
+          />
+        }
       </div>
     )
   }
 
   render() {
     const  { finished, stepIndex } = this.state;
-    const { recipes } = this.props;
-
-    const initialValues = {
-      start_date: new Date(),
-      items: Object.keys(DAYS).map(d => ({
-        recipe_id: null,
-        day: parseInt(d),
-      })),
-    }
+    const { plan, recipes } = this.props;
 
     return (
       <div style={{ maxWidth: 1280, margin: 'auto' }}>
         <Stepper activeStep={stepIndex} orientation="vertical">
           <Step>
-            <StepLabel>Create a new plan</StepLabel>
+            <StepLabel>Edit plan</StepLabel>
             <StepContent>
               <PlanMetaForm
-                isNewPlan
                 form={this.formIdentifier}
+                initialValues={plan}
                 onSubmit={this.handleSubmit}
-                initialValues={initialValues}
               />
               {this.renderStepActions(0)}
             </StepContent>
@@ -98,8 +89,8 @@ class PlanAdd extends React.Component {
             <StepLabel>Add recipes</StepLabel>
             <StepContent>
               <PlanRecipesForm
-                isNewPlan
                 form={this.formIdentifier}
+                initialValues={plan}
                 recipes={recipes}
                 onSubmit={this.handleSubmit}
               />
@@ -107,13 +98,15 @@ class PlanAdd extends React.Component {
             </StepContent>
           </Step>
         </Stepper>
+
       </div>
     )
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, ownProps) => {
   return {
+    plan: state.plans.all[parseInt(ownProps.params.id)],
     recipes: state.recipes.all,
   }
 }
@@ -121,8 +114,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     handleFormSubmit: identifier => dispatch(submit(identifier)),
-    addPlan: plan => dispatch(plansActions.createPlan(plan)),
+    editPlan: plan => dispatch(plansActions.editPlan(plan)),
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(PlanAdd);
+export default connect(mapStateToProps, mapDispatchToProps)(PlanEdit);
