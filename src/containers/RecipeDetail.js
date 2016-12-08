@@ -17,7 +17,6 @@ class RecipeDetail extends React.Component {
 
 	constructor(props) {
 		super(props);
-    console.log(props);
     this.props.fetchRecipe(this.props.params.id);
 	}
 

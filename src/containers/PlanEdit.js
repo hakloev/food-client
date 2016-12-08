@@ -71,6 +71,10 @@ class PlanEdit extends React.Component {
     const  { finished, stepIndex } = this.state;
     const { plan, recipes } = this.props;
 
+    if (Object.keys(plan).length === 0) {
+      return <h1>Loading plan...</h1>
+    }
+
     return (
       <div style={{ maxWidth: 1280, margin: 'auto' }}>
         <Stepper activeStep={stepIndex} orientation="vertical">
@@ -98,15 +102,16 @@ class PlanEdit extends React.Component {
             </StepContent>
           </Step>
         </Stepper>
-
       </div>
     )
   }
 }
 
 const mapStateToProps = (state, ownProps) => {
+  let id = parseInt(ownProps.params.id || 0);
+  const plan = (id != 0 && state.plans.all[id] !== undefined) ? state.plans.all[id] : {};
   return {
-    plan: state.plans.all[parseInt(ownProps.params.id)],
+    plan,
     recipes: state.recipes.all,
   }
 }

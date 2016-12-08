@@ -20,6 +20,10 @@ class PlanAdd extends React.Component {
     this.formIdentifier = 'add-plan';
   }
 
+  componentWillUnmount() {
+    // TODO: destroy add plan
+  }
+
   state = {
     finished: false,
     stepIndex: 0,

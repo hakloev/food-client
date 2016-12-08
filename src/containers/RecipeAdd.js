@@ -14,26 +14,22 @@ import RecipeStepsForm from '../components/RecipeStepsForm';
 import { actions as ingredientsActions } from '../data/ingredients';
 import { actions as recipeActions } from '../data/recipes';
 
-class RecipeEdit extends React.Component {
+class RecipeAdd extends React.Component {
   state = {
     finished: false,
     stepIndex: 0,
   }
 
-
   componentWillMount() {
     this.props.fetchIngredients();
   }
 
-  componentDidMount() {
-    if (this.props.recipe && this.props.recipe.name === undefined) {
-      this.props.fetchRecipe(this.props.params.id);
-    }
+  componentWillUnmount() {
+    // TODO: destroy form
   }
 
   onSubmit = () => {
-    const { recipe: { id: recipeId } } = this.props;
-    this.props.handleFormSubmit(`edit-recipe-${recipeId}`);
+    this.props.handleFormSubmit('add-recipe');
   }
 
   handleNextStep = () => {
@@ -52,8 +48,7 @@ class RecipeEdit extends React.Component {
   }
 
   handleSubmit = formData => {
-    const { recipe } = this.props;
-    this.props.editRecipe(formData, recipe.id);
+    this.props.addRecipe(formData);
   }
 
   renderStepActions = step => {
@@ -84,32 +79,24 @@ class RecipeEdit extends React.Component {
 
   render() {
     const  { finished, stepIndex } = this.state;
-    const {
-      addIngredient,
-      allIngredients,
-      recipe,
-      recipe: {
-        ingredients = [], steps = [], ...recipeMetaData
-      }
-    } = this.props;
+    const { allIngredients } = this.props;
 
-    if (recipeMetaData.id === undefined) {
-      recipeMetaData.id = this.props.params.id;
+    const recipe = {
+      name: null,
+      website: null,
+      type: null,
+      ingredients: [],
+      steps: [],
     }
-
-    if (Object.keys(recipe).length === 0) {
-      return <h1>Loading recipe...</h1>
-    }
-
 
     return (
       <div style={{ maxWidth: 1280, margin: 'auto' }}>
         <Stepper activeStep={stepIndex} orientation="vertical">
           <Step>
-            <StepLabel>{`Edit ${recipeMetaData.name}`}</StepLabel>
+            <StepLabel>Add recipe</StepLabel>
             <StepContent>
               <RecipeMetaForm
-                form={`edit-recipe-${recipeMetaData.id}`}
+                form="add-recipe"
                 initialValues={recipe}
                 onSubmit={this.handleSubmit}
               />
@@ -117,10 +104,10 @@ class RecipeEdit extends React.Component {
             </StepContent>
           </Step>
           <Step>
-            <StepLabel>Edit ingredients</StepLabel>
+            <StepLabel>Add ingredients</StepLabel>
             <StepContent>
               <RecipeIngredientsForm
-                form={`edit-recipe-${recipeMetaData.id}`}
+                form="add-recipe"
                 initialValues={recipe}
                 allIngredients={allIngredients}
                 onSubmit={this.handleSubmit}
@@ -129,10 +116,10 @@ class RecipeEdit extends React.Component {
             </StepContent>
           </Step>
           <Step>
-            <StepLabel>Edit steps</StepLabel>
+            <StepLabel>Add steps</StepLabel>
             <StepContent>
               <RecipeStepsForm
-                form={`edit-recipe-${recipeMetaData.id}`}
+                form="add-recipe"
                 initialValues={recipe}
                 onSubmit={this.handleSubmit}
               />
@@ -145,12 +132,9 @@ class RecipeEdit extends React.Component {
   }
 }
 
-const mapStateToProps = (state, ownProps) => {
-  let id = parseInt(ownProps.params.id || 0);
-  const recipe = (id != 0 && state.recipes.all[id] !== undefined) ? state.recipes.all[id] : {};
-
+const mapStateToProps = state => {
+  console.log(state);
   return {
-    recipe,
     allIngredients: state.ingredients.all,
   }
 }
@@ -159,9 +143,9 @@ const mapDispatchToProps = dispatch => {
   return {
     fetchRecipe: id => dispatch(recipeActions.fetchSingleRecipe(id)),
     fetchIngredients: () => dispatch(ingredientsActions.fetchAllIngredients()),
-    editRecipe: (recipe, id) => dispatch(recipeActions.editRecipe(recipe, id)),
+    addRecipe: recipe => dispatch(recipeActions.createRecipe(recipe)),
     handleFormSubmit: identifier => dispatch(submit(identifier)),
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(RecipeEdit);
+export default connect(mapStateToProps, mapDispatchToProps)(RecipeAdd);

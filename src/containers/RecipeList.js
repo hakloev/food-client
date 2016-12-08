@@ -4,20 +4,16 @@ import { connect } from 'react-redux';
 import TextField from 'material-ui/TextField';
 
 import RecipeCard from '../components/RecipeCard';
-import RecipeAddModal from '../components/RecipeAddModal';
+import RecipeAddButton from '../components/RecipeAddButton';
 
 class RecipeList extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      query: '',
-    }
+  state = {
+    query: '',
   }
 
-  handleChange = (event) => {
+  handleChange = event => {
     event.preventDefault();
-    console.log('handleChange');
+
     this.setState({
       query: event.target.value,
     });
@@ -26,7 +22,6 @@ class RecipeList extends React.Component {
   render() {
 
     const { recipes, isFetching } = this.props;
-    console.log(recipes);
 
     let filteredRecipes = {};
 
@@ -56,7 +51,7 @@ class RecipeList extends React.Component {
             return <RecipeCard key={recipeId} recipe={recipes[recipeId]} />
           })}
         </div>
-        <RecipeAddModal />
+        <RecipeAddButton />
       </div>
     )
   }

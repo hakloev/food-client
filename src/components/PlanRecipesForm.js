@@ -14,6 +14,9 @@ import { DAYS } from '../constants';
 
 class PlanRecipesForm extends React.Component {
 
+  // TODO: create addRecipe(fields) that pushes default dictionary to fields
+  // https://github.com/jgretz/zen-express/blob/56ed2cf824f33bbcec7d22b555855fa2a6f94919/src/admin/src/components/schema/edit_schema.js#L47
+
   render() {
     const { handleSubmit, isNewPlan } = this.props;
 
