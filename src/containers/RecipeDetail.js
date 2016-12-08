@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import CircularProgress from 'material-ui/CircularProgress';
 import Chip from 'material-ui/Chip';
-import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
+import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui/Table';
 
 import { actions as recipeActions } from '../data/recipes';
 
@@ -21,8 +21,6 @@ class RecipeDetail extends React.Component {
 	}
 
 	render() {
-    console.log('render recipe', this.props);
-    console.log(Object.keys(this.props.recipe).length)
 		if (Object.keys(this.props.recipe).length === 0) {
 			return <CircularProgress size={80} thickness={5} />
 		}
@@ -79,7 +77,6 @@ class RecipeDetail extends React.Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  console.log(state);
   return {
     recipe: state.recipes.all[ownProps.params.id],
   }

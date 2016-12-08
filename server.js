@@ -31,7 +31,6 @@ app.use(require('webpack-dev-middleware')(compiler, {
 }));
 
 app.use('/api/*', (req, res) => {
-	console.log(req.baseUrl);
 	req.url = req.baseUrl.endsWith('/') ? req.baseUrl: `${req.baseUrl}/`;
 	apiProxy.web(req, res, {
 		target: {

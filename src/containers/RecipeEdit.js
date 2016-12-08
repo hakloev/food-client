@@ -5,7 +5,6 @@ import { submit } from 'redux-form';
 import { Step, Stepper, StepLabel, StepContent } from 'material-ui/Stepper';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
-import Divider from 'material-ui/Divider';
 
 import RecipeMetaForm from '../components/RecipeMetaForm';
 import RecipeIngredientsForm from '../components/RecipeIngredientsForm';

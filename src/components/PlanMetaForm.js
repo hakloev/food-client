@@ -2,9 +2,7 @@ import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 import Moment from 'moment';
 
-import { SelectField, TextField, DatePicker } from 'redux-form-material-ui';
-import RaisedButton from 'material-ui/RaisedButton';
-import MenuItem from 'material-ui/MenuItem'
+import { TextField, DatePicker } from 'redux-form-material-ui';
 
 const disableAllButMonday = date => date.getDay() !== 1;
 

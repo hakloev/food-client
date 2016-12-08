@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Field, FieldArray, reduxForm, formValueSelector } from 'redux-form';
+import { Field, FieldArray, reduxForm } from 'redux-form';
 import Moment from 'moment';
 
-import { SelectField, TextField, DatePicker, Checkbox } from 'redux-form-material-ui';
+import { SelectField, TextField } from 'redux-form-material-ui';
 import RaisedButton from 'material-ui/RaisedButton';
 import MenuItem from 'material-ui/MenuItem'
 import IconButton from 'material-ui/IconButton';
@@ -75,7 +75,6 @@ class RecipeIngredientsForm extends React.Component {
 RecipeIngredientsForm = reduxForm({
   form: 'edit-recipe-ingredients',
   destroyOnUnmount: false,
-
 })(RecipeIngredientsForm);
 
 export default RecipeIngredientsForm;

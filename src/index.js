@@ -4,20 +4,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Root from './Root';
 
-import debug from 'debug';
-
 import configureStore from './configureStore';
 import HMRContainer from './containers/HMRContainer';
+
 import { actions as recipeActions } from './data/recipes';
 import { actions as plansActions } from './data/plans';
 
 
 require('../styles/main.scss');
-
-debug.enable();
-
-const log = debug('client:index.js');
-log('Client environment', process.env);
 
 const store = configureStore();
 const rootEl = document.getElementById('root')
@@ -46,7 +40,7 @@ try {
     });
   }
 } catch (err) {
-  log('Render error', err);
+  console.error('Render error', err);
 }
 
 export default App;

@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Field, FieldArray, reduxForm, formValueSelector } from 'redux-form';
+import { Field, FieldArray, reduxForm } from 'redux-form';
 import Moment from 'moment';
 
 import { SelectField, TextField, DatePicker, Checkbox } from 'redux-form-material-ui';

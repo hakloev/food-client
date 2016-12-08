@@ -12,7 +12,6 @@ import { DAYS } from '../constants';
 class HomePage extends React.Component {
 	constructor(props) {
 		super(props);
-		console.log(props);
 		this.props.fetchNewestPlan();
 	}
 
@@ -39,7 +38,6 @@ class HomePage extends React.Component {
 }
 
 const mapStateToProps = state => {
-	console.log('home', state);
 	return {
 		plan: state.plans.latest,
     recipes: state.recipes.all,

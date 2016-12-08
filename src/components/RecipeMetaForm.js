@@ -2,29 +2,14 @@ import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 
 import { SelectField, TextField } from 'redux-form-material-ui';
-import RaisedButton from 'material-ui/RaisedButton';
 import MenuItem from 'material-ui/MenuItem'
 
 import { RECIPE_TYPES, INGREDIENT_UNITS } from '../constants';
 
 
-const dataSource = Object.keys(RECIPE_TYPES).map(key => {
-  return {
-    name: RECIPE_TYPES[key],
-    id: key,
-  }
-});
-
-const dataSourceConfig = {
-  text: 'name',
-  value: 'id',
-}
-
 class RecipeMetaForm extends React.Component {
 
   render() {
-    console.log('recipe form render props', this.props);
-
     const { handleSubmit, isNewRecipe, handleEdit, handleDelete } = this.props;
 
     return (

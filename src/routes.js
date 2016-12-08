@@ -1,6 +1,5 @@
 import React from 'react';
 import { Route, IndexRoute, Link } from 'react-router';
-import debug from 'debug';
 
 import MainLayout from './layout/MainLayout';
 import HomePage from './containers/HomePage';
@@ -12,12 +11,9 @@ import PlanList from './containers/PlanList';
 import PlanEdit from './containers/PlanEdit';
 import PlanAdd from './containers/PlanAdd';
 import PlanDetail from './containers/PlanDetail';
-// import RecipeForm from './components/RecipeCreate';
 import NotFound from './components/NotFound';
 
-debug('client:routes');
-
-const siteTitle = 'food client';
+const siteTitle = 'food-fiesta';
 
 export const routes = {
 	homepage: {

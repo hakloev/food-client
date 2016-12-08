@@ -18,6 +18,7 @@ const Menu = (props) => (
   >
     <MenuItem
       primaryText="Create new plan"
+      containerElement={<Link to="/plans/add/" />}
     />
     <MenuItem primaryText="All plans"
       containerElement={<Link to="/plans/" />}
@@ -30,7 +31,6 @@ const Menu = (props) => (
 Menu.muiName = 'IconMenu';
 
 
-
 export default class MainLayout extends Component {
 
   static propTypes = {
@@ -39,10 +39,6 @@ export default class MainLayout extends Component {
 
   render() {
     const { children, location } = this.props;
-    const navLinkProps = {
-      className: 'layout__nav-link',
-      activeClassName: 'layout__nav-link--selected'
-    };
 
     return (
 			<MuiThemeProvider>

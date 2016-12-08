@@ -11,9 +11,7 @@ import PlanAddButton from '../components/PlanAddButton';
 class PlanList extends React.Component {
 
   render() {
-
     let { plans } = this.props;
-
 
     if (plans.length === 0) {
       return <p>No plans</p>

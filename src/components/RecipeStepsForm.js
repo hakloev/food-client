@@ -5,7 +5,6 @@ import Moment from 'moment';
 
 import { SelectField, TextField, DatePicker, Checkbox } from 'redux-form-material-ui';
 import RaisedButton from 'material-ui/RaisedButton';
-import MenuItem from 'material-ui/MenuItem'
 import IconButton from 'material-ui/IconButton';
 import IconDelete from 'material-ui/svg-icons/action/delete';
 
