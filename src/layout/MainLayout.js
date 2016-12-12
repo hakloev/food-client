@@ -7,6 +7,8 @@ import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 
+import theme from './theme';
+
 const Menu = (props) => (
   <IconMenu
     { ...props }
@@ -41,7 +43,7 @@ export default class MainLayout extends Component {
     const { children, location } = this.props;
 
     return (
-			<MuiThemeProvider>
+			<MuiThemeProvider muiTheme={theme}>
 				<div id="main-container">
 					<AppBar
             title={<Link to="/">food-fiesta</Link>}
